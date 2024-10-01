@@ -5,15 +5,15 @@ static int index_Met = 0;
 //-------------------------------------------------------------------
 
 const OpcionDescripcion opciones_MET[] = {
-  {"Tomando clase \n      sentado", "0"},           
-  {"Tomando clase \n        de pie", "1"},                    
-  {"Dando clase \n    sentado", "2"},         
-  {"Dando clase \n      de pie", "3"},       
-  {"Caminando", "4"},         
-  {"Comiendo", "5"},     
-  {"Escribiendo", "6"},
-  {" Trabajando en\n computadora", "7"},
-  {"    De pie en \n un laboratorio", "8"}                
+  {"Tomando clase \n      sentado", "1.3"},           
+  {"Tomando clase \n        de pie", "1.8"},                    
+  {"Dando clase \n    sentado", "2.0"},         
+  {"Dando clase \n      de pie", "2.3"},       
+  {"Caminando", "2.9"},         
+  {"Comiendo", "1.5"},     
+  {"Escribiendo", "1.3"},
+  {" Trabajando en\n computadora", "1.5"},
+  {"    De pie en \n un laboratorio", "2.0"}                
 };
 
 const int num_opciones_MET = sizeof(opciones_MET) / sizeof(opciones_MET[0]);
