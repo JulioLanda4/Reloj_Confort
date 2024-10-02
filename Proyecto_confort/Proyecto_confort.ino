@@ -12,10 +12,10 @@
 #include <WiFi.h>
 #include <Arduino_MQTT_Client.h>
 
-const char* ssid = "REPLACE_YOUR_WIFI";                        // Reemplazar con el nombre de la red Wifi
-const char* password = "REPLACE_YOUR_PASSWORD";                // Reemplazar con la clave Wifi
-const char* TOKEN = "REPLACE_WITH_TOKEN";                      // Reemplazar por el token del dispositivo de ThingsBoard donde se va a publicar
-const char* THINGSBOARD_SERVER = "REPLACE_WITH_URL";           // Reemplazar por el servidor de thingsboard
+const char* ssid = "RED_WIFI";                        // Reemplazar con el nombre de la red Wifi
+const char* password = "CLAVE_WIFI";                // Reemplazar con la clave Wifi
+const char* TOKEN = "TOKEN_DISPOSITIVO";                      // Reemplazar por el token del dispositivo de ThingsBoard donde se va a publicar
+const char* THINGSBOARD_SERVER = "URL_SERVIDOR";           // Reemplazar por el servidor de thingsboard
 const char *ntpServer = "time.google.com";
 
 #define NUM_ADC_SAMPLE 20           // Frecuencia de sampleo
@@ -64,7 +64,7 @@ void setup()
 
     // --------------------------- Inicializar MAX30102 ----------------------------------------------
     if (!particleSensor.begin()) {
-      Serial.println("MAX30105 was not found. Please check wiring/power. ");
+      Serial.println("Error al conectar el MAX3012, revisa las conexiones. ");
     }
     byte ledBrightness = 0x1F; // Intensidad del LED (de 0 = apagado a 255 = 50mA)
     byte sampleAverage = 4;    // Número de muestras a promediar (1, 2, 4, 8, 16, 32)
@@ -72,9 +72,9 @@ void setup()
     particleSensor.shutDown();
     // --------------------------- Inicializar GY-906 ----------------------------------------------
     if (!mlx.begin()) {
-      Serial.println("Error connecting to MLX sensor. Check wiring.");
+      Serial.println("Error conectando el sensor MLX, revisa las conexiones.");
     }
-    Serial.print("Emissivity = "); Serial.println(mlx.readEmissivity());
+    Serial.print("Emisividad = "); Serial.println(mlx.readEmissivity());
     Serial.println("================================================");
     mlxSleep();  // Enviar comando de sleep mode
 
@@ -201,19 +201,19 @@ void WifiInit() {
   }
 
   Serial.println("");
-  Serial.println("WiFi connected.");
-  Serial.println("IP address: ");
+  Serial.println("WiFi conectado.");
+  Serial.println("Dirección IP: ");
   Serial.println(WiFi.localIP());
 }
 
 void publish_tb(Diccionario respuestas[], int num_respuestas) {
   if (WiFi.status() != WL_CONNECTED) {
-      Serial.println("WiFi not connected. Reconnecting...");
+      Serial.println("WiFi no conectado. Reconectando...");
       WifiInit();
   }
   reconnect_to_thingsboard();
   tb.setBufferSize(150);  
-  Serial.println("Sending data...");
+  Serial.println("Enviando datos...");
   StaticJsonDocument<150> jsonDocument;             // Crear un objeto JSON
 
   // Agregar todas las respuestas al documento JSON
@@ -233,17 +233,17 @@ void publish_tb(Diccionario respuestas[], int num_respuestas) {
 
 void reconnect_to_thingsboard() {
     if (!tb.connected()) {
-        Serial.print("Connecting to: ");
+        Serial.print("Conectando a: ");
         Serial.print(THINGSBOARD_SERVER);
-        Serial.print(" with token ");
+        Serial.print(" con el token ");
         Serial.println(TOKEN);
 
         if (!tb.connect(THINGSBOARD_SERVER, TOKEN)) {
-            Serial.println("Failed to connect to ThingsBoard");
+            Serial.println("Fallo al conectar a ThingsBoard");
             return;
         }
 
-        Serial.println("Connected to ThingsBoard");
+        Serial.println("Conectado a ThingsBoard");
     }
 }
 
