@@ -1,4 +1,4 @@
-# Reloj Inteligente IoT para Datos de Confort Térmico / IoT Smartwatch for Thermal Comfort Data
+# Reloj Inteligente IoT para Datos de Confort Térmico 
 
 ## Español
 
@@ -31,6 +31,7 @@ Este proyecto está licenciado bajo la **GNU General Public License v3.0**.
 
 
 ---
+# IoT Smartwatch for Thermal Comfort Data
 
 ## English
 
